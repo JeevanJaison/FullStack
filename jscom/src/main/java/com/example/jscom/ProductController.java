@@ -1,6 +1,5 @@
 package com.example.jscom;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,15 +20,23 @@ public class ProductController {
     private ProductRepository productRepository;
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
+    @Autowired
+    private CartItemRepository cartItemRepository;
+
     @GetMapping("/products")
     public String listProducts(Model model, HttpSession session) {
+
         List<Product> productList = productRepository.findAll();
         String value = (String) session.getAttribute("user");
-        if(value!=null) 
-            model.addAttribute("user",value);
+
+        Long cartItems = cartItemRepository.count();
+        model.addAttribute("cartno", cartItems);
+
+        if (value != null)
+            model.addAttribute("user", value);
         else
             return "redirect:/login";
-        
+
         model.addAttribute("products", productList);
         return "product-list";
     }

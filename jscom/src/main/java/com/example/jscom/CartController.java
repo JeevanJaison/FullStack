@@ -1,7 +1,5 @@
 package com.example.jscom;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Controller
 public class CartController {
 
     @Autowired
     private CartService cartService;
-
 
     @Autowired
     private CartItemRepository cartItemRepository;
@@ -29,6 +27,7 @@ public class CartController {
         cartService.addToCart(productId);
         return "Product added to cart";
     }
+
     @GetMapping("/cart")
     public String viewCart(Model model) {
         List<CartItem> cartItems = cartItemRepository.findAll();
