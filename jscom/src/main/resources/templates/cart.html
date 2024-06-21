@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cart</title>
+    <!-- Bootstrap CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Your Cart</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Assuming ${cartItems} is a Thymeleaf iterable -->
+                <tr th:each="cartItem : ${cartItems}">
+                    <td th:text="${cartItem.product.id}"></td>
+                    <td th:text="${cartItem.product.name}"></td>
+                    <td th:text="${cartItem.product.price}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/products" class="btn btn-primary">Continue Shopping</a>
+    </div>
+</body>
+</html>

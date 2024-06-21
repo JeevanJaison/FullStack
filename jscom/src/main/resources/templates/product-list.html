@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product List</title>
+    <!-- Bootstrap CSS -->
+    <script>
+        function addToCart(productId) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/cart", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    alert("Product added to cart!");
+                }
+            };
+            xhr.send("productId=" + productId);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4" th:text="${user}">Logged in as</h1>
+        <h1 class="mt-5 mb-4">Product List</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Add to cart</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.id}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.description}"></td>
+                    <td>
+                        <button type="button" class="btn btn-primary" th:onclick="'addToCart(' + ${product.id} + ')'">Add to Cart</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        <!-- update the div to display number of items in the cart  -->
+    <div><div>Number of items in the cart</div><div id="cartid">0</div>
+
+    <!-- update the div to display number of items in the cart  -->
+</body>
+</html>
+
